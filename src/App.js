@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,34 +23,39 @@ class App extends React.Component {
     try {
       const API = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&q=${this.state.searchQuery}&format=json`;
       const response = await axios.get(API);
+      const loc = response.data[0];
+      
 
-      console.log(response.data[0]);
-      this.setState({location: response.data[0]});
+      console.log(loc);
+      this.setState({ location: response.data[0] });
     } catch (error) {
       console.log(error);
-      this.setState({error: true});
-      this.setState({errorMessage: error.message});
+      this.setState({ error: true });
+      this.setState({ errorMessage: error.message });
 
     }
+    
   }
 
 
   render() {
     return (
       <>
-        <input onChange={this.handleInput} placeholder="Search for a city"></input>
-        <button onClick={this.handleSearch}>Explore!</button>
+        <h1>City Explorer</h1>
+        <input onChange={this.handleInput} placeholder="Search for a city....."></input>
+        <button onClick={this.handleSearch}>Explore</button>
         {this.state.location.display_name &&
           <>
             <h2>This City is: {this.state.location.display_name}</h2>
             <p>Latitude: {this.state.location.lat}</p>
             <p>Longitude: {this.state.location.lon}</p>
+            <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=12&markers=${this.state.location.lat},${this.state.location.lon}|icon:large-red-cutout&format=png`} alt="map" />
           </>
         }
         {this.state.error &&
           <p> Whoops! {this.state.errorMessage}</p>
         }
-        </>
+      </>
     )
   }
 }
