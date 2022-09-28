@@ -8,6 +8,7 @@ class App extends React.Component {
     this.state = {
       searchQuery: '',
       location: {},
+      weather: [],
       error: false,
       errorMessage: '',
     }
@@ -38,22 +39,43 @@ class App extends React.Component {
   }
 
 
+  handleWeather = async (e) => {
+    e.preventDefault();
+    try {
+      const API = `http://localhost:3001/weather?searchQuery=${this.state.searchQuery}`;
+      const response = await axios.get(API);
+      const weather = response.data;
+      console.log(weather);
+      this.setState({ weather: response.data });
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: true });
+      this.setState({ errorMessage: error.message });
+
+    }
+
+  }
+
+
+
   render() {
     return (
       <>
         <h1>City Explorer</h1>
         <input onChange={this.handleInput} placeholder="Search for a city....."></input>
         <button onClick={this.handleSearch}>Explore</button>
+        <button onClick={this.handleWeather}>Weather</button>
         {this.state.location.display_name &&
           <>
             <h2>This City is: {this.state.location.display_name}</h2>
             <p>Latitude: {this.state.location.lat}</p>
             <p>Longitude: {this.state.location.lon}</p>
+            <p>Weather: {this.state.weather}</p>
             <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=12&markers=${this.state.location.lat},${this.state.location.lon}|icon:large-red-cutout&format=png`} alt="map" />
           </>
         }
         {this.state.error &&
-          <p> Whoops! {this.state.errorMessage}</p>
+          <p class='error'> Whoops! {this.state.errorMessage}</p>
         }
       </>
     )
