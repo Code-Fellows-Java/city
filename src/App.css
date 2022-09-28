@@ -40,3 +40,7 @@ button {
   width: 75px;
   height: 40px;
 }
+
+p.error {
+  color: red;
+}
