@@ -2,17 +2,16 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-class Weather extends React.Component {
+class Movie extends React.Component {
     render() {
-        console.log(this.props.weather);
+        console.log(this.props.movie);
       return (
         <Card style={{ width: '18rem' }}>
           <ListGroup variant="flush">
-            <ListGroup.Item>{this.props.date}</ListGroup.Item>
-            <ListGroup.Item>{this.props.description}</ListGroup.Item>
+            <ListGroup.Item>{this.props.title}</ListGroup.Item>
           </ListGroup>
         </Card>
       );
     }
   }
-  export default Weather;
+  export default Movie;
