@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Weather from './Weather.js'
-import Movie from './Movie.js'
+import Search from './Search.js';
 import './App.css';
 
 class App extends React.Component {
@@ -46,8 +45,8 @@ class App extends React.Component {
 
   handleWeather = async () => {
     try {
-      const API = `http://localhost:3001/weather?searchQuery=${this.state.searchQuery}`;
-      // const API = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.searchQuery}`;
+      // const API = `http://localhost:3001/weather?searchQuery=${this.state.searchQuery}`;
+      const API = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.searchQuery}`;
       const response = await axios.get(API);
       let weatherData = response.data.map(weatherData => {
         return weatherData;
@@ -65,8 +64,8 @@ class App extends React.Component {
 
   handleMovie = async () => {
     try {
-      const API = `http://localhost:3001/movies?searchQuery=${this.state.searchQuery}`;
-      // const API = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.searchQuery}`;
+      // const API = `http://localhost:3001/movies?searchQuery=${this.state.searchQuery}`;
+      const API = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.searchQuery}`;
       const response = await axios.get(API);
       let movie = response.data.map(movieData => {
         return movieData;
@@ -85,23 +84,22 @@ class App extends React.Component {
 
 
   render() {
-    console.log(this.state);
+    console.log('Weathers state is: ', this.state.weather);
     return (
       <>
         <h1>City Explorer</h1>
         <input onChange={this.handleInput} placeholder="Search for a city....."></input>
         <button onClick={this.handleSearch}>Explore</button>
-        {this.state.weather.length > 0 && 
+        {this.state.weather.length > 0 &&
           <>
             <h2>This City is: {this.state.location.display_name}</h2>
             <p>Latitude: {this.state.location.lat}</p>
             <p>Longitude: {this.state.location.lon}</p>
             <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_IQ_KEY}&center=${this.state.location.lat},${this.state.location.lon}&zoom=12&markers=${this.state.location.lat},${this.state.location.lon}|icon:large-red-cutout&format=png`} alt="map" />
-              <div class = "weather">
-              {this.state.weather.map(weather => (<Weather date = {weather.date}/>))}
-              {this.state.weather.map(weather => (<Weather description = {weather.description}/>))}
-              {this.state.movieData.map(movie => (<Movie title = {movie.title}/>))}
-              </div>
+            <div class="API">
+              <Search weather = {this.state.weather} movieData = {this.state.movieData}/>
+            </div>
+            
           </>
         }
         {this.state.error &&

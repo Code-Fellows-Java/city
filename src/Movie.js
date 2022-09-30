@@ -1,17 +1,26 @@
 import React from "react";
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Carousel from 'react-bootstrap/Carousel';
 
 class Movie extends React.Component {
-    render() {
-        console.log(this.props.movie);
-      return (
-        <Card style={{ width: '18rem' }}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>{this.props.title}</ListGroup.Item>
-          </ListGroup>
-        </Card>
-      );
-    }
+  render() {
+    console.log(this.props.movie);
+    return (
+      <>
+        <Carousel>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={this.props.data.image_url}
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>{this.props.title}</h3>
+              <p>{this.props.overview}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+        </>
+    );
   }
-  export default Movie;
+}
+export default Movie;
