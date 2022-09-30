@@ -1,18 +1,20 @@
 import React from "react";
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Accordion from 'react-bootstrap/Accordion';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Weather extends React.Component {
-    render() {
-        console.log(this.props.weather);
-      return (
-        <Card style={{ width: '18rem' }}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>{this.props.date}</ListGroup.Item>
-            <ListGroup.Item>{this.props.description}</ListGroup.Item>
-          </ListGroup>
-        </Card>
-      );
-    }
+  render() {
+    console.log(this.props.weather);
+    return (
+      <Accordion defaultActiveKey="0" flush>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>{this.props.date}</Accordion.Header>
+          <Accordion.Body>
+            {this.props.description}
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    );
   }
-  export default Weather;
+}
+export default Weather;
