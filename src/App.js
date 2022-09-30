@@ -45,8 +45,8 @@ class App extends React.Component {
 
   handleWeather = async () => {
     try {
-      // const API = `http://localhost:3001/weather?searchQuery=${this.state.searchQuery}`;
-      const API = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.searchQuery}`;
+      const API = `http://localhost:3001/weather?searchQuery=${this.state.searchQuery}`;
+      // const API = `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.searchQuery}`;
       const response = await axios.get(API);
       let weatherData = response.data.map(weatherData => {
         return weatherData;
@@ -64,8 +64,8 @@ class App extends React.Component {
 
   handleMovie = async () => {
     try {
-      // const API = `http://localhost:3001/movies?searchQuery=${this.state.searchQuery}`;
-      const API = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.searchQuery}`;
+      const API = `http://localhost:3001/movies?searchQuery=${this.state.searchQuery}`;
+      // const API = `${process.env.REACT_APP_SERVER}/movies?searchQuery=${this.state.searchQuery}`;
       const response = await axios.get(API);
       let movie = response.data.map(movieData => {
         return movieData;
